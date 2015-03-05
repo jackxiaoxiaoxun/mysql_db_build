@@ -10,6 +10,9 @@ class mysql_query_build
         $this->db   = new stdClass();
     }
     
-    
+    function query()
+    {
+        
+    }
     
 }
