@@ -22,7 +22,10 @@ class mysql_query_build
     
     function xt()
     {
-        
+        return time();
     }
     
 }
+
+
+
