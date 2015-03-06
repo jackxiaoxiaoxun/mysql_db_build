@@ -15,4 +15,9 @@ class mysql_query_build
         
     }
     
+    function tt()
+    {
+        return __FILE__;
+    }
+    
 }
