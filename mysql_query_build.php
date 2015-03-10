@@ -20,11 +20,6 @@ class mysql_query_build
         return __FILE__;
     }
     
-    function xt()
-    {
-        return time();
-    }
-    
 }
 
 
