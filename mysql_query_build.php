@@ -14,7 +14,7 @@ class mysql_query_build
     
     function __construct()
     {
-        $this->db   = new stdClass();
+        $this->db   = new pdo_db;
     }
     
     function queryAll()
@@ -32,8 +32,31 @@ class mysql_query_build
         
     }
     
-    function update()
+    function update($array = null)
     {
+    	$data	= [];
+    	if (is_array($array))
+    	{
+    		$s		= '';
+    		foreach ($array as $k => $v)
+    		{
+    			$s		.= "$k = :$k ,";
+    			$data[':'.$k]	= $v;
+    		}
+    		$s		= rtrim($s, ',');
+    	} else
+    	{
+    		return ;
+    	}
+    	
+    	if ($this->sql['where'] != '')
+    	{
+    		$where	= $this->comWhere($this->sql['where']);
+    		$sql        = "UPDATE " . $this->tableName
+    		. " SET $s WHERE " . $where['where'];
+    		$data	= array_merge($data, $where['data']);
+    		
+    	}
         
     }
     
@@ -54,7 +77,7 @@ class mysql_query_build
         $sql = "INSERT INTO {$this->tableName}(". $name_str .") VALUES ("
                 . $value_str . ")";
         
-        var_dump($sql, $va);
+        return $this->db->query($sql, $va);
     }
     
     function comWhere( $args )
